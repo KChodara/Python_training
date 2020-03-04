@@ -16,7 +16,3 @@ def longest_common_substring(string1, string2):
                 current_row[j] = max(current_row[j-1], old_row[j])
         old_row, current_row = current_row, [0]*(string1_len+1)
     return max(old_row)
-
-
-
-print(longest_common_child('CRATERED', 'TERRACED'))
