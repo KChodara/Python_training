@@ -130,4 +130,54 @@ class LinkedList:
         self.head = current_pointer
 
 
+class QueueNode:
+    """
+    This class contains single node for a queue.
+    """
+    def __init__(self, value, pointer=None):
+        self.value = value
+        self.pointer = pointer
 
+
+class Queue:
+    """
+    Simple implementation of queue data structure.
+    """
+    def __init__(self):
+        self.length = 0
+        self.first = None
+        self.last = None
+
+    def isEmpty(self):
+        return self.length == 0
+
+    def peek(self):
+        if self.isEmpty():
+            return None
+        else:
+            return self.first.value
+
+    def enqueue(self, value):
+        if self.isEmpty():
+            self.first = QueueNode(value)
+            self.last = self.last
+        elif self.length == 1:
+            self.last = QueueNode(value)
+            self.first.pointer = self.last
+        else:
+            self.last.pointer = QueueNode(value, self.last)
+            self.last = self.last.pointer
+        self.length += 1
+
+    def dequeue(self):
+        if self.isEmpty():
+            return None
+        elif self.length == 1:
+            result = self.first.value
+            self.first = None
+            self.last = None
+        else:
+            result = self.first.value
+            self.first = self.first.pointer
+        self.length -= 1
+        return result
