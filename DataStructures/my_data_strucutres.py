@@ -61,9 +61,9 @@ class SingleLinkedNode:
 class LinkedList:
     """
     Simple implementation of a linked list.
-    
+
     To be done:
-        * add get and set methods to node class and use them in the class 
+        * add get and set methods to node class and use them in the class
     """
     def __init__(self, first_value):
         self.head = SingleLinkedNode(first_value)
@@ -181,3 +181,103 @@ class Queue:
             self.first = self.first.pointer
         self.length -= 1
         return result
+
+
+class StackNode:
+    """
+    This class contains single node for a stack.
+    """
+    def __init__(self, value, pointer=None):
+        self.value = value
+        self.pointer = pointer
+
+
+class Stack:
+    """
+    Simple implementation of stack data structure.
+    """
+    def __init__(self):
+        self.length = 0
+        self.top = None
+        self.bottom = None
+
+    def is_empty(self):
+        return self.length == 0
+
+    def peek(self):
+        if self.is_empty():
+            return None
+        else:
+            return self.top.value
+
+    def push(self, value):
+        if self.is_empty():
+            self.top = StackNode(value)
+            self.bottom = self.top
+        else:
+            self.top = StackNode(value, self.top)
+        self.length += 1
+
+    def pop(self):
+        if self.is_empty():
+            return None
+        elif self.length == 1:
+            result = self.top.value
+            self.top = None
+            self.bottom = None
+        else:
+            result = self.top.value
+            self.top = self.top.pointer
+        self.length -= 1
+        return result
+
+
+class TreeNode:
+    """
+    This class contains single node for a tree.
+    """
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+class Tree:
+    """
+    Under work:
+        Extend logic while inserting values
+    Simple implementation of Tree data structure.
+    """
+    def __init__(self):
+        self.root = None
+
+    def insert(self, value):
+        if self.root is None:
+            self.root = TreeNode(value)
+        else:
+            current_tree_node = self.root
+            while True:
+                if value < current_tree_node.value:
+                    if current_tree_node.left is not None:
+                        next_tree_node = current_tree_node.left
+                    else:
+                        current_tree_node.left = TreeNode(value)
+                        break
+                else:
+                    if current_tree_node.right is not None:
+                        next_tree_node = current_tree_node.right
+                    else:
+                        current_tree_node.right = TreeNode(value)
+                        break
+                current_tree_node = next_tree_node
+
+    def lookup(self, value):
+        current_tree_node = self.root
+        while True:
+            if current_tree_node is None:
+                return False
+            elif current_tree_node.value == value:
+                return True
+            elif value < current_tree_node.value:
+                current_tree_node = current_tree_node.left
+            else:
+                current_tree_node = current_tree_node.right
